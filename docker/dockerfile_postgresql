@@ -1,0 +1,16 @@
+# Use an official PostgreSQL image as a parent image
+FROM postgres:latest
+
+# Copy the SQL initialization script into the container
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Adjust PostgreSQL configuration so that remote connections to the database are possible
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/postgresql.conf
+
+# Expose the PostgreSQL port
+EXPOSE 5432
+
+# Set the environment variables for PostgreSQL
+ENV POSTGRES_USER=docker
+ENV POSTGRES_PASSWORD=docker
+ENV POSTGRES_DB=docker

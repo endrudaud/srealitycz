@@ -1,0 +1,4 @@
+scrapy
+selenium
+psycopg2-binary
+pandas

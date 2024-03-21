@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: dockerfile_postgresql
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: docker
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  scraper:
+    build:
+      context: .
+      dockerfile: dockerfile_python
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
